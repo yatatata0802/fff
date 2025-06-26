@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>喫茶ブライト</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700&family=Montserrat:wght@700&family=Kiwi+Maru:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ベーススタイル */
+      body {
+        font-family: "Noto Serif JP", serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f0e6;
+        color: #5b4b3a;
+      }
+
+      header {
+        background-color: #d1b28a;
+        color: #fff;
+        text-align: center;
+        padding: 50px 20px;
+      }
+
+      header h1 {
+        font-size: 3em;
+        margin: 0;
+        font-weight: 700;
+      }
+
+      header p {
+        font-size: 1.2em;
+        margin-top: 10px;
+        font-style: italic;
+      }
+
+      section {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h2 {
+        font-size: 2em;
+        margin-bottom: 10px;
+      }
+
+      .menu-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .menu-item span {
+        font-size: 1.2em;
+      }
+
+      .testimonial {
+        background-color: #e9d9c2;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        font-size: 1.1em;
+        font-style: italic;
+      }
+
+      footer {
+        background-color: #d1b28a;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+
+      footer p {
+        margin: 0;
+      }
+
+      .gallery img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+
+      .contact-info {
+        margin-top: 20px;
+      }
+
+      .contact-info p {
+        font-size: 1.2em;
+      }
+
+      .hero {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        min-height: 540px;
+        background: url("IMG_1965.jpg") center center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          120deg,
+          rgba(30, 20, 10, 0.65) 0%,
+          rgba(220, 180, 130, 0.3) 100%
+        );
+        z-index: 1;
+      }
+      .menu-btn {
+        position: absolute;
+        top: 32px;
+        right: 32px;
+        z-index: 10;
+        background: #fffbe6;
+        border-radius: 50%;
+        width: 68px;
+        height: 68px;
+        box-shadow: 0 2px 12px rgba(80, 40, 10, 0.13);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        transition: box-shadow 0.2s;
+      }
+      .menu-btn .icon {
+        font-size: 2.1em;
+        margin-bottom: 2px;
+        color: #b89c7a;
+      }
+      .menu-btn .label {
+        font-size: 0.95em;
+        color: #7c6a4d;
+        font-family: "Noto Serif JP", serif;
+        font-weight: bold;
+        letter-spacing: 0.08em;
+      }
+      .title-area {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        padding: 0 5vw;
+      }
+      .main-title {
+        font-family: "Kiwi Maru", "Noto Serif JP", serif;
+        font-size: 6vw;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        color: #fffbe6;
+        text-shadow: 0 8px 32px #000, 0 2px 0 #fffbe6, 0 0 16px #000,
+          0 0 2px #fff;
+        background: linear-gradient(90deg, #fffbe6 60%, #d1b28a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        margin-right: 40px;
+        margin-bottom: 0.2em;
+        filter: drop-shadow(0 2px 8px #b89c7a88);
+        animation: movieTitleIn 1.4s cubic-bezier(0.23, 1.12, 0.62, 1.01) 0.1s
+          both;
+        opacity: 0;
+        transform: scale(0.2) translateY(100px);
+        z-index: 6;
+      }
+      .catchcopy {
+        writing-mode: vertical-rl;
+        font-size: 2.5vw;
+        color: #fff;
+        text-shadow: 0 4px 24px #000, 0 0px 2px #fffbe6, 0 0 8px #000;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        background: rgba(209, 178, 138, 0.22);
+        border-radius: 16px;
+        padding: 28px 12px 28px 18px;
+        margin-bottom: 2em;
+        animation: slideInRight 1.2s 0.5s cubic-bezier(0.23, 1.12, 0.62, 1.01)
+          forwards;
+        opacity: 0;
+        transform: translateX(80px);
+        z-index: 6;
+      }
+    </style>
+    <style>
+      @keyframes movieTitleIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.2) translateY(100px);
+          filter: blur(8px) brightness(1.5);
+          letter-spacing: 0.5em;
+          text-shadow: none;
+        }
+        60% {
+          opacity: 1;
+          transform: scale(1.15) translateY(-10px);
+          filter: blur(0) brightness(1.1);
+          letter-spacing: 0.18em;
+          text-shadow: 0 8px 32px #000, 0 2px 0 #fffbe6, 0 0 16px #000,
+            0 0 2px #fff;
+        }
+        80% {
+          transform: scale(0.95) translateY(0);
+          filter: none;
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+          filter: none;
+          letter-spacing: 0.12em;
+        }
+      }
+      .main-title {
+        animation: movieTitleIn 1.4s cubic-bezier(0.23, 1.12, 0.62, 1.01) 0.1s
+          both;
+      }
+      @keyframes slideInRight {
+        0% {
+          opacity: 0;
+          transform: translateX(80px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .catchcopy {
+        animation: slideInRight 1.2s 0.5s cubic-bezier(0.23, 1.12, 0.62, 1.01)
+          forwards;
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s, transform 0.8s;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .menu-btn,
+      .btn {
+        transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+      }
+      .menu-btn:hover,
+      .btn:hover {
+        box-shadow: 0 8px 32px #b89c7a55;
+        transform: scale(1.08) rotate(-2deg);
+        background: linear-gradient(90deg, #b89c7a 60%, #d1b28a 100%);
+      }
+      .gallery img:hover {
+        transform: scale(1.07) rotate(1deg);
+        box-shadow: 0 8px 32px #b89c7a55;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      /* スクロール出現アニメーション */
+      .fade-in-left {
+        opacity: 0;
+        transform: translateX(-60px);
+        transition: opacity 0.8s, transform 0.8s;
+      }
+      .fade-in-right {
+        opacity: 0;
+        transform: translateX(60px);
+        transition: opacity 0.8s, transform 0.8s;
+      }
+      .fade-in-up {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s, transform 0.8s;
+      }
+      .visible {
+        opacity: 1 !important;
+        transform: translateX(0) translateY(0) !important;
+      }
+    </style>
+    <style>
+      /* マスター紹介特別演出 */
+      .master-photo {
+        opacity: 0;
+        transform: scale(0.7);
+        transition: opacity 0.9s, transform 0.9s;
+      }
+      .master-photo.visible {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+      }
+      @keyframes masterTitleIn {
+        0% {
+          opacity: 0;
+          transform: translateY(60px);
+          letter-spacing: 0.5em;
+        }
+        60% {
+          opacity: 1;
+          transform: translateY(-8px);
+          letter-spacing: 0.18em;
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+          letter-spacing: 0.08em;
+        }
+      }
+      .master-story h2 {
+        opacity: 0;
+        animation: none;
+      }
+      .master-story h2.visible {
+        animation: masterTitleIn 1.2s cubic-bezier(0.23, 1.12, 0.62, 1.01)
+          forwards;
+        opacity: 1 !important;
+      }
+      .master-story p {
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .master-story p.typed {
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hero">
+      <div class="overlay"></div>
+      <button class="menu-btn">
+        <span class="icon">☕</span>
+        <span class="label">MENU</span>
+      </button>
+      <div class="title-area">
+        <div class="main-title">喫茶ブライト</div>
+        <div class="catchcopy">昭和から続く<br />心温まる純喫茶</div>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="fade-in-left">メニュー</h2>
+      <div class="menu-item fade-in-right">
+        <span>ブレンドコーヒー</span>
+        <span>¥500</span>
+      </div>
+      <div class="menu-item fade-in-right">
+        <span>チーズケーキ</span>
+        <span>¥400</span>
+      </div>
+      <div class="menu-item fade-in-right">
+        <span>季節のフルーツパフェ</span>
+        <span>¥600</span>
+      </div>
+
+      <h2 class="fade-in-left">お客様の声</h2>
+      <div class="testimonial fade-in-up">
+        <p>
+          "喫茶ブライトは、私の心を落ち着けてくれる場所です。毎週のように訪れ、温かなコーヒーを楽しんでいます。スタッフの皆さんも温かい！"
+        </p>
+        <p>- 常連のお客様</p>
+      </div>
+
+      <h2 class="fade-in-left">店内ギャラリー</h2>
+      <div class="gallery">
+        <img
+          src="images/cafe-interior.jpg"
+          alt="店内の様子"
+          class="fade-in-up"
+        />
+        <img
+          src="images/coffee-cup.jpg"
+          alt="コーヒーとお菓子"
+          class="fade-in-up"
+        />
+      </div>
+
+      <h2 class="fade-in-left">お知らせ</h2>
+      <p class="fade-in-right">
+        ２０２５年７月１日　営業再開しました。長らくの休業、大変ご迷惑をおかけしました。
+      </p>
+    </section>
+
+    <div class="bottom-bg-area">
+      <div class="master-section">
+        <img
+          src="IMG_6714.jpg"
+          alt="喫茶ブライト マスター"
+          class="master-photo"
+        />
+        <div class="master-story">
+          <h2>マスターのご紹介</h2>
+          <p>
+            父の代から受け継いだ「喫茶ブライト」を、<br />
+            二代目マスターとして守り続けています。<br />
+            いつもの笑顔と、こだわりのコーヒーで、<br />
+            皆さまに温かいひとときをお届けします。<br />
+            ぜひお気軽にお声がけください。
+          </p>
+        </div>
+      </div>
+      <div class="shop-info">
+        <h2 class="fade-in-left">店舗情報</h2>
+        <p class="shop-address fade-in-right">大阪市都島区都島中通３−１−４</p>
+        <div class="shop-map">
+          <iframe
+            src="https://www.google.com/maps?q=大阪市都島区都島中通３−１−４&output=embed"
+            width="100%"
+            height="180"
+            style="border: 0; border-radius: 8px; margin-top: 6px"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          >
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 喫茶ブライト | All Rights Reserved</p>
+    </footer>
+
+    <script>
+      // スクロールで.fade-in系要素をふわっと表示
+      document.addEventListener("DOMContentLoaded", () => {
+        const fadeEls = document.querySelectorAll(
+          ".fade-in-left, .fade-in-right, .fade-in-up"
+        );
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) entry.target.classList.add("visible");
+            });
+          },
+          { threshold: 0.2 }
+        );
+        fadeEls.forEach((el) => observer.observe(el));
+      });
+
+      // マスター紹介特別演出
+      document.addEventListener("DOMContentLoaded", () => {
+        // 写真拡大フェードイン
+        const masterPhoto = document.querySelector(".master-photo");
+        const masterTitle = document.querySelector(".master-story h2");
+        const masterP = document.querySelector(".master-story p");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                if (entry.target === masterPhoto)
+                  masterPhoto.classList.add("visible");
+                if (entry.target === masterTitle)
+                  masterTitle.classList.add("visible");
+                if (
+                  entry.target === masterP &&
+                  !masterP.classList.contains("typed")
+                ) {
+                  // タイピング風
+                  const text = masterP.textContent;
+                  masterP.textContent = "";
+                  masterP.classList.add("typed");
+                  [...text].forEach((char, i) => {
+                    setTimeout(() => {
+                      masterP.textContent += char;
+                    }, 30 * i);
+                  });
+                }
+              }
+            });
+          },
+          { threshold: 0.2 }
+        );
+        observer.observe(masterPhoto);
+        observer.observe(masterTitle);
+        observer.observe(masterP);
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .master-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff8ee;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(209, 178, 138, 0.1);
+    max-width: 900px;
+    margin: 60px auto 0 auto;
+    padding: 36px 24px;
+    gap: 36px;
+    margin-bottom: 64px;
+  }
+  .master-photo {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 24px rgba(80, 40, 10, 0.13);
+    border: 6px solid #f8e9d2;
+  }
+  .master-story h2 {
+    font-family: "Kiwi Maru", "Noto Serif JP", serif;
+    font-size: 2em;
+    margin: 0 0 18px 0;
+    color: #b89c7a;
+    letter-spacing: 0.08em;
+  }
+  .master-story p {
+    font-size: 1.15em;
+    color: #5b4b3a;
+    line-height: 2;
+    margin: 0;
+  }
+  @media (max-width: 700px) {
+    .master-section {
+      flex-direction: column;
+      gap: 18px;
+      padding: 18px 6vw;
+    }
+    .master-photo {
+      width: 140px;
+      height: 140px;
+    }
+  }
+  .shop-info {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    max-width: none;
+    margin: 0;
+    padding: 18px 0 24px 0;
+    text-align: center;
+    z-index: 1000;
+    transition: background 0.3s;
+  }
+  .shop-info h2 {
+    display: block;
+    font-family: "Kiwi Maru", "Noto Serif JP", serif;
+    font-size: 1.05em;
+    color: #b89c7a;
+    margin: 0 0 2px 0;
+    letter-spacing: 0.08em;
+    font-weight: bold;
+  }
+  .shop-info h2,
+  .shop-address {
+    color: #2d1a0b;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #fff, 0 0 2px #000, 0 0 8px #fff8;
+  }
+  .shop-address {
+    background: rgba(255, 255, 255, 0.7);
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #fff8;
+  }
+  @media (max-width: 700px) {
+    .shop-info {
+      padding: 10px 2vw 8px 2vw;
+      font-size: 0.95em;
+    }
+  }
+  .shop-map iframe {
+    width: 100%;
+    min-width: 180px;
+    max-width: 400px;
+    height: 180px;
+    border: 0;
+    border-radius: 8px;
+    margin-top: 6px;
+  }
+  .bottom-bg-area {
+    position: relative;
+    background: url("000Image.png") center center/cover no-repeat;
+    padding: 60px 0 0 0;
+    min-height: 60vh;
+    padding-bottom: 260px;
+    z-index: 1;
+  }
+  .bottom-bg-area::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 248, 238, 0.45);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .bottom-bg-area > * {
+    position: relative;
+    z-index: 3;
+  }
+</style>
